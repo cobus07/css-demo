@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+        #stage{
+            width: 1000px;
+            height: 300px;
+            background: #f0f0f0;
+            border: 1px solid #ccc;
+            margin: 100px auto;
+            -webkit-box-shadow: inset 0 0 3px rgba(0,0,0,0.35);
+            -webkit-perspective: 800px;
+            -webkit-perspective-origin: 50% -10%;
+        }
+        #container{
+            width: 128px;
+            height: 100px;
+            margin: 100px auto;
+            position: relative;
+            -webkit-transform-style: preserve-3d;
+            -webkit-transition: -webkit-transform 0.5s linear;
+        }
+        #container img{
+            position: absolute;
+            left: 0;
+            top: 0;
+            -webkit-transition: all 0.5s linear;
+        }
+	</style>
+</head>
+<body>
+	<div id="stage">
+		<div id="container">
+		</div>
+	</div>
+
+    <script>
+
+            var oContainer = document.getElementById('container');
+            var html = '',
+                    arrPic = [1,2,3,4,5,6,7,8,9],
+                    index = 0;
+            for(var i=0; i<9; i++){
+                var oImg = new Image();
+                oImg.onload = function(){
+                    index++;
+                    if(index == 9){
+                        var aImg = oContainer.getElementsByTagName('img');
+                        for(var i=0; i<aImg.length; i++){
+                            (function(idx, elem){
+                                setTimeout(function(){
+                                    elem.style.WebkitTransform = 'rotateY('+40*idx+'deg) translateZ(195px)';
+                                }, (9-idx)*100);
+                            })(i, aImg[i]);
+
+                        }
+                    }
+
+                };
+                oImg.src = 'images/mm'+arrPic[i]+'.jpg';
+
+
+
+                oContainer.appendChild(oImg);
+            }
+
+            var index2 = 0;
+            oContainer.onclick = function(){
+                this.style.WebkitTransform = 'rotateY('+(++index2*40)+'deg)';
+            };
+
+
+
+    </script>
+
+
+
+
+
+</body>
+</html>
